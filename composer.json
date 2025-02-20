@@ -1,0 +1,46 @@
+{
+    "name": "the-bigger-boat/statamic-advanced-emails",
+    "description": "A Statamic addon that provides advanced email functionality.",
+    "type": "statamic-addon",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "The Bigger Boat",
+            "email": "john@thebiggerboat.co.uk"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "TheBiggerBoat\\StatamicAdvancedEmails\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TheBiggerBoat\\StatamicAdvancedEmails\\Tests\\": "tests"
+        }
+    },
+    "require": {
+        "statamic/cms": "^5.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "pixelfear/composer-dist-plugin": true
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Statamic Advanced Emails",
+            "description": "A Statamic addon that provides advanced email functionality."
+        },
+        "laravel": {
+            "providers": [
+                "TheBiggerBoat\\StatamicAdvancedEmails\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
