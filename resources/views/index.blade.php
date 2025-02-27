@@ -16,6 +16,7 @@
                     <th>Field</th>
                     <th>Operator</th>
                     <th>Value</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -26,6 +27,10 @@
                     <td>{{ $entry['field'] }}</td>
                     <td>{{ $entry['operator'] }}</td>
                     <td>{{ $entry['value'] }}</td>
+                    <td class="flex justify-end gap-1">
+                        <a href="{{ cp_route('advanced-emails.edit', $id) }}" class="btn btn-xs">Edit</a>
+                        <a href="{{ cp_route('advanced-emails.destroy', $id) }}" class="btn btn-xs">Delete</a>
+                    </td>
                 </tr>
             @endforeach
             </tbody>

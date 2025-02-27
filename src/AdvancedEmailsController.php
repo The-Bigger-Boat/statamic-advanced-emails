@@ -56,11 +56,13 @@ class AdvancedEmailsController extends CpController
         $blueprint = $this->getBlueprint();
         $fields = $blueprint->fields()->addValues(request()->all());
 
-        $form = \Statamic\Facades\Form::find($fields->get('form'));
-        $fields = $fields->addRules([
-            'form_field' => 'in:' . implode(',', $form->fields()->keys()->all())
+        $form = \Statamic\Facades\Form::find($fields->get('form')->value());
+        
+        $fields->validate([
+            'field' => 'in:' . implode(',', $form->fields()->keys()->all())
+        ], [
+            'field.in' => 'The field name must match of the field keys in the selected form blueprint.'
         ]);
-        $fields->validate();
 
         // Process the fields first
         $processed = $fields->process()->values()->all();
@@ -102,20 +104,28 @@ class AdvancedEmailsController extends CpController
         $blueprint = $this->getBlueprint();
         $fields = $blueprint->fields()->addValues(request()->all());
 
-        $processed = $fields->process()->values()->all();
+        $form = \Statamic\Facades\Form::find($fields->get('form')->value());
 
-        $form = \Statamic\Facades\Form::find($processed['form']);
         $fields->validate(
             [
                 'field' => 'in:' . implode(',', $form->fields()->keys()->all())
             ],
             [
-                'field.in' => 'The form field must be one of the fields in the selected form.'
+                'field.in' => 'The field name must match of the field keys in the selected form blueprint.'
             ]
         );
 
+        $processed = $fields->process()->values()->all();
+
         // Process the fields and store them back into the entry
         $this->repository->save($id, $processed);
+
+        return redirect()->route('statamic.cp.advanced-emails.index');
+    }
+
+    public function delete($id)
+    {
+        $this->repository->delete($id);
 
         return redirect()->route('statamic.cp.advanced-emails.index');
     }

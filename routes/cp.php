@@ -11,4 +11,6 @@ Route::name('advanced-emails.')->prefix('advanced-emails')->group(function () {
 
     Route::get('/edit/{id}', [AdvancedEmailsController::class, 'edit'])->name('edit');
     Route::post('/edit/{id}', [AdvancedEmailsController::class, 'update'])->name('update');
+
+    Route::get('/delete/{id}', [AdvancedEmailsController::class, 'delete'])->name('destroy');
 });
